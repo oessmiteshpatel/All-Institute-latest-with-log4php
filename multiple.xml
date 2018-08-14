@@ -1,0 +1,73 @@
+
+<configuration xmlns="http://logging.apache.org/log4php/">
+    <appender name="fileappender" class="LoggerAppenderFile">
+        <layout class="LoggerLayoutHtml" />
+        <!-- <param name="locationInfo" value="true" /> -->
+        <param name="file" value="log.html" />
+      
+    </appender>
+
+    <!-- <appender name="fileappender" class="LoggerAppenderMailEvent">
+        <layout class="LoggerLayoutSimple" />
+        <param name="to" value="mitesh.patel@theopeneyes.in" />
+        <param name="from" value="mitesh.patel@theopeneyes.in" />
+    </appender> -->
+
+    <appender name="emailNotice" class="LoggerAppenderMail">
+        <!-- <param name="from" value="mitesh.patel@theopeneyes.in" />
+        <param name="to" value="mitesh.patel@theopeneyes.in" />
+        <param name="subject" value="Error" /> -->
+        <layout class="LoggerLayoutPattern">
+            <param name="ConversionPattern" value="%d{Y-m-d H:i:s} [%p] %c: %m (at %F line %L)%n" />
+        </layout>
+       
+        <filter class="LoggerFilterDenyAll" />
+    </appender>
+
+
+
+    <!-- <logger name="Something"> 
+        <appender_ref ref="fileappender" />
+         <appender_ref ref="emailNotice" />
+    </logger> -->
+
+    <appender name="secundus" class="LoggerAppenderPDO">
+        <param name="dsn" value="mysql:host=localhost;dbname=aere" />
+        <param name="user" value="root" />
+        <param name="password" value="" />
+        <param name="table" value="log" />
+    </appender>
+
+
+    <!-- <appender name="secundus" class="LoggerAppenderPDO">
+        <param name="dsn" value="mysql:host=DevAERECourses.db.11797364.2d8.hostedresource.net;dbname=DevAERECourses" />
+        <param name="user" value="DevAERECourses" />
+        <param name="password" value="W3lc0m3@2018" />
+        <param name="table" value="log" />
+    </appender> -->
+ 
+
+    
+     <!-- <appender name="secundus" class="LoggerAppenderPDO">
+        <param name="dsn" value="DevAERECourses.db.11797364.2d8.hostedresource.net" />
+        <param name="user" value="DevAERECourses" />
+        <param name="password" value="W3lc0m3@2018" />
+        <param name="table" value="log" />
+    </appender> -->
+
+
+    <root>
+        <appender_ref ref="fileappender" />
+    </root>
+    
+    <logger name="dberror"> 
+        <appender_ref ref="secundus" />
+        <appender_ref ref="emailNotice" />
+    </logger>
+    
+</configuration>
+
+
+
+
+
