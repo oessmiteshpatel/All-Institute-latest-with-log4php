@@ -17,7 +17,7 @@ Logger::configure('multiple.xml');
  $log=Logger::getLogger('dberror');
 
  $vars = new Lib_log(); 
-// include_once "allfunction.php";
+
 ?>
 <html class="no-js" lang="">
 
