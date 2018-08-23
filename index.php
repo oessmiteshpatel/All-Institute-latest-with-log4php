@@ -2,6 +2,17 @@
 include( "admin/connect.php" );
 session_start();
 $MODE=MODE;
+
+include("log4php/Logger.php");
+include("Lib_log.php");
+
+ 
+Logger::configure('multiple.xml');
+ $log;
+ $log=Logger::getLogger('dberror');
+
+ $vars = new Lib_log(); 
+
 include_once "allfunction.php";
 ?>
 

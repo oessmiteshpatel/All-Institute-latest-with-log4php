@@ -88,7 +88,7 @@ $(".navbar-toggle").click(function() {
 					$code = $_POST[ 'code' ];
 
 
-					session_start();
+				//	session_start();
 					if ( strcmp( $_SESSION[ 'code' ], $_POST[ 'code' ] ) != 0 ) {
 						// $errors["code"]="You entered Wrong Captcha Code";
 						echo " <script>
@@ -137,7 +137,8 @@ $(".navbar-toggle").click(function() {
 									$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 									$mail->SMTPAuth = true; // authentication enabled
 									$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-									$mail->Host = "smtp.gmail.com";
+								//	$mail->Host = "smtp.gmail.com";
+								    $mail->Host = "mail.uatbyopeneyes.com";
 									$mail->Port = 465; // or 587
 									$mail->IsHTML(true);
 									$mail->FromName=FROMNAME; 

@@ -81,7 +81,6 @@ class LoggerAppenderPDO extends LoggerAppender {
 
 	/** Name of the table to which to append log events. */
 	protected $table = 'log4php_log';
-	//protected $table = 'log';
 	
 	/** The number of recconect attempts to make on failed append. */
 	protected $reconnectAttempts = 3;
@@ -122,7 +121,7 @@ class LoggerAppenderPDO extends LoggerAppender {
 		} catch (PDOException $e) {
 			$this->warn("Failed connecting to database. Closing appender. Error: " . $e->getMessage());
 			$this->close();
-			//return;
+			return;
 		}
 
 		// Parse the insert patterns; pattern parts are comma delimited
@@ -195,6 +194,31 @@ class LoggerAppenderPDO extends LoggerAppender {
 			}
 			$params[] = $buffer;
 		}
+		// ========================================================================
+		//  to see array print $param in below 2 lines.jusst for check
+		echo '<pre>';
+		print_r($params);
+		// @@@ added this line
+		// get custom error array
+		$custom_error=Lib_log::getCustomMsg();
+
+		// replace errtype with old data
+		// $params[2] = thats errtype (previous liblog)
+		if(isset($params[2]) && isset($custom_error['errtype'])){
+			$params[2] = $custom_error['errtype'];
+		}
+		// replace errfile with old data
+		// $params[5] = thats file name (previous liblog)
+		if(isset($params[5]) && isset($custom_error['errfile'])){
+			$params[5] = $custom_error['errfile'];
+		}
+
+		// replace errline with old data
+		// $params[6] = thats line no (previous 89 line no)
+		if(isset($params['6']) && isset($custom_error['errline'])){
+			$params[6] = $custom_error['errline'];
+		}
+		// =============================================================================
 		return $params;
 	}
 	

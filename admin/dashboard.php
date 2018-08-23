@@ -4,6 +4,7 @@ include 'side_bar.php';
 include 'header.php';
 include 'connect.php';
 session_start();
+
 $MODE=MODE;
 include 'functions.php';
 

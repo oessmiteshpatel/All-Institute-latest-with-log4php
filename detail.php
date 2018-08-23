@@ -12,8 +12,7 @@ include("Lib_log.php");
 
  
 Logger::configure('multiple.xml');
- //$log;
- //$log=Logger::getLogger('dberror');
+ 
 
  $vars = new Lib_log(); 
 
@@ -969,42 +968,42 @@ if(strstr($_SERVER['HTTP_USER_AGENT'],'iPhone') || strstr($_SERVER['HTTP_USER_AG
 		?>
 
 									<script>
-									<?php
-					if(isset($_GET['cid']))
-					{
+				// 					<?php
+				// 	if(isset($_GET['cid']))
+				// 	{
 						
-						?>
-					var check = <?php echo $_SESSION['check'];?> 
+				// 		?>
+				// 	var check = <?php //echo $_SESSION['check'];?> 
 						
-						<?php
-						unset($_SESSION['check']);
-					}
-					?>
-					$(document).ready(function () {
-						if(check==1) {
-							//if(cid){
-							$('#succes_login_id').css('display','block');
+				// 		<?php
+				// 		unset($_SESSION['check']);
+				// 	}
+				// 	?>
+				// 	$(document).ready(function () {
+				// 		if(check==1) {
+				// 			//if(cid){
+				// 			$('#succes_login_id').css('display','block');
 					
-						setTimeout(function() {
-							$('#succes_login_id').css('display','none');
+				// 		setTimeout(function() {
+				// 			$('#succes_login_id').css('display','none');
 
-									var my_variable_name = window.location.href;
+				// 					var my_variable_name = window.location.href;
 							
-							var success = my_variable_name.replace("?check=0", '');
+				// 			var success = my_variable_name.replace("?check=0", '');
 							
-							//window.location.replace(success);
+				// 			//window.location.replace(success);
 
-						}, 10000);
-					}
-					});
+				// 		}, 10000);
+				// 	}
+				// 	});
 					</script>
 
-				<!-- <script>
+				 <script>
 setTimeout(function() {
   $('#succes_login_id').fadeOut('hide');
 }, 10000);
 					
-				</script> -->
+				</script>
 			
 					<br>
 						<div class="sidebar-box">
@@ -1126,7 +1125,8 @@ setTimeout(function() {
 									$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 									$mail->SMTPAuth = true; // authentication enabled
 									$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-									$mail->Host = "smtp.gmail.com";
+								//	$mail->Host = "smtp.gmail.com";
+								    $mail->Host = "mail.uatbyopeneyes.com";
 									$mail->Port = 465; // or 587
 									$mail->IsHTML(true);
 									$mail->FromName=FROMNAME; 
@@ -1177,8 +1177,9 @@ setTimeout(function() {
 												$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 												$mail->SMTPAuth = true; // authentication enabled
 												$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-												$mail->Host = "smtp.gmail.com";
-												$mail->Port = 465; // or 587
+											//	$mail->Host = "smtp.gmail.com";
+            								    $mail->Host = "mail.uatbyopeneyes.com";
+            									$mail->Port = 465; // or 587
 												$mail->IsHTML(true);
 												$mail->FromName=FROMNAME; 
 												$mail->Username=USERNAME;

@@ -1,107 +1,90 @@
-<title>ALL-Institute | Register Course</title>
+<script type="text/javascript">
+    function autoRefreshPage()
+    {
+       window.location = window.location.href;
+    }
+   // setInterval('autoRefreshPage()', 86400000);
+   setInterval('autoRefreshPage()', 10000);
+</script>
+
+<title>ALL-Institute | Errorlogs</title>
 <?php
 include 'side_bar.php';
 include 'header.php';
 include 'connect.php';
-include 'functions.php';
 session_start();
 $MODE=MODE;
-
-
-include("../log4php/Logger.php");
-include("../Lib_log.php");
-
-
-Logger::configure('../multiple.xml');
-//$log;
-//$log=Logger::getLogger('dberror');
-
-$vars = new Lib_log();
-//include 'functions.php';
-//$q = "SELECT * FROM `tbl_1year` ";
-
-$query = "select b.*,c.Title from tblcourseregistered as a left join tblregister as b on a.RegisterId=b.RegisterId left join tblcourse as c on a.CourseID=c.CourseID";
-
-$result = mysql_query($query)or die(mysql_error());
+include 'functions.php';
 ?>
 
 
+ 
 <div class="panel panel-default">
 <div class="<?php echo $MODE; ?>"></div>
-    <div class="panel-heading">                                
+    <div class="panel-heading">         
+                       
         <h3 class="panel-title"> <b>List of registration for all courses</b> </h3>   
 
         <div class="btn-group pull-right">
-            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export All User Courses</button>
+            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export All Users</button>
             <ul class="dropdown-menu">
                 
-                <li><a href="#" onClick ="$('#customers2').tableExport({type: 'excel', escape: 'false'});"><img src='img/icons/xls.png' width="24"/> XLS</a></li>
+                <li><a href="#" onClick ="$('#customers2').tableExport({tableName:'registration',type: 'excel', escape: 'false'});"><img src='img/icons/xls.png' width="24"/> XLS</a></li>
                 
             </ul>
         </div> 
 
 
     </div>
-    <div class="panel-body">
-        <table id="customers2" class="table datatable">
-            <thead>
-                <tr>
-                    <th>Sr#</th>
-                    
-                   
-                    <th width="140"> First Name </th>
-                    <th width="140">Last Name</th>
-                    <th width="170">Email</th>
-                    <th width="140">Phone</th>
-                    <th>Course</th>
-                    <th>Is Active?</th>
-                   
-                    
+    <!-- 
 
+   table body
 
-                </tr>
-            </thead>
-            <tbody>
-                <?php
-                $i = 1;
+     -->
+        <?php
 
-                while ($row = mysql_fetch_array($result)) {
-                     $IsActive = $row['IsActive'];
-                    ?>
-                    <tr>
-                        <td><?php echo $i; ?></td>
-                        
-                        
-                        <td><?php echo $row['FirstName']; ?></td>
-                        <td><?php echo $row['LastName']; ?></td> 
-						 <td><?php echo $row['Email']; ?></td>
-                        <td><?php echo $row['Phone']; ?></td>
-						<td width="400px;"><?php echo $row['Title']; ?></td>
-                        
-                        
-                        
-                        <td>  
-                           <?php
-                        if($row['IsActive']==1)
-                    {
-                        echo "Yes";
-                    }
-                    if($row['IsActive']==0)
-                    {
-                        echo "No";
-                    }
+           $datetime1=date('Y-m-d',strtotime('-'.'7'.'days'));
+
+           $resupdate=mysql_query("INSERT INTO tblloghistory SELECT * FROM tbllog WHERE timestamp LIKE '$datetime1%'");
+
+           $resdelete=mysql_query("DELETE FROM tbllog WHERE timestamp LIKE '$datetime1%'");
+
+// $res=mysql_query("SELECT * FROM log");
+// $rec=mysql_num_rows($res);
+
+// 	while($r=mysql_fetch_array($res))
+// 	{
+    
+// 	    $timestamp=$r['timestamp'];
+//        	$today = date('Y-m-d');
+       
+		
+// 		// $count = 2;
+// 		 $datetime1 = new DateTime($today);
+// 		 $datetime2 = new DateTime($timestamp);
+		 
+// 		 $interval = $datetime1->diff($datetime2);
+// 		 $diff = $interval->format('%a');
+         
+     
+    
+// $rec=mysql_num_rows($res);
+		//  if($diff=='8')
+		//  {
+        //      echo "true";   
+        //      die;
+        //  }
+        //  else
+        //  {
+        //     echo "false <br>";
+        //     die;
+        //  }
+
+  // }    
+        
 ?>
-                        </td>
-                       
 
-                    </tr>
-                    <?php
-                    $i++;
-                }
-                ?>
-            </tbody>
-        </table>
-    </div>
+
 </div>
 <!-- END PAGE CONTENT -->
 </div>
@@ -150,7 +133,37 @@ include 'footer.php';
 <script src="js/jquery.bvalidator-yc.js"></script>
 
 
+<script>
+									<?php
+					if(isset($_SESSION['check']))
+					{
 
+						?>
+					var check = <?php echo $_SESSION['check'];?> 
+						
+						<?php
+						unset($_SESSION['check']);
+					}
+					?>
+					$(document).ready(function () {
+						if(check==1) {
+							//if(cid){
+							$('#update_rec').css('display','block');
+					
+						setTimeout(function() {
+							$('#update_rec').css('display','none');
+
+									var my_variable_name = window.location.href;
+							
+							var success = my_variable_name.replace("?check=0", '');
+							
+							//window.location.replace(success);
+
+						}, 10000);
+					}
+					});
+					
+</script>
 
 
 

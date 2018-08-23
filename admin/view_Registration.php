@@ -5,7 +5,7 @@ include 'header.php';
 include 'connect.php';
 session_start();
 $MODE=MODE;
-//include 'functions.php';
+include 'functions.php';
 include("../log4php/Logger.php");
 include("../Lib_log.php");
 

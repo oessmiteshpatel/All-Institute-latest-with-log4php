@@ -123,6 +123,7 @@ class LoggerLayoutHtml extends LoggerLayout {
 	
 		$sbuf .= "<td>";
 		$sbuf .= round(1000 * $event->getRelativeTime());
+	//	$sbuf .= date('Y-m-d H:i:s', strtotime($event->getRelativeTime()));
 		$sbuf .= "</td>" . PHP_EOL;
 	
 		$sbuf .= "<td title=\"" . $event->getThreadName() . " thread\">";
@@ -141,7 +142,7 @@ class LoggerLayoutHtml extends LoggerLayout {
 			$sbuf .= $level;
 		}
 		$sbuf .= "</td>" . PHP_EOL;
-	
+
 		$sbuf .= "<td title=\"" . htmlentities($event->getLoggerName(), ENT_QUOTES) . " category\">";
 		$sbuf .= htmlentities($event->getLoggerName(), ENT_QUOTES);
 		$sbuf .= "</td>" . PHP_EOL;
@@ -156,6 +157,27 @@ class LoggerLayoutHtml extends LoggerLayout {
 		$sbuf .= "<td title=\"Message\">";
 		$sbuf .= htmlentities($event->getRenderedMessage(), ENT_QUOTES);
 		$sbuf .= "</td>" . PHP_EOL;
+
+
+			$sbuf .= "<td>" . PHP_EOL;
+
+		$sbuf .= "hiii";
+
+		$sbuf .= "</td>" . PHP_EOL;
+
+
+
+		$sbuf .= "<td>" . PHP_EOL;
+
+		$sbuf .= "hiii";
+	
+		$sbuf .= "</td>" . PHP_EOL;
+
+
+
+
+
+
 
 		$sbuf .= "</tr>" . PHP_EOL;
 		
@@ -191,11 +213,14 @@ class LoggerLayoutHtml extends LoggerLayout {
 		$sbuf .= "<th>Time</th>" . PHP_EOL;
 		$sbuf .= "<th>Thread</th>" . PHP_EOL;
 		$sbuf .= "<th>Level</th>" . PHP_EOL;
+		
 		$sbuf .= "<th>Category</th>" . PHP_EOL;
 		if ($this->locationInfo) {
 			$sbuf .= "<th>File:Line</th>" . PHP_EOL;
 		}
 		$sbuf .= "<th>Message</th>" . PHP_EOL;
+		$sbuf .= "<th>File Name</th>" . PHP_EOL;
+		$sbuf .= "<th>Line Number</th>" . PHP_EOL;
 		$sbuf .= "</tr>" . PHP_EOL;
 
 		return $sbuf;

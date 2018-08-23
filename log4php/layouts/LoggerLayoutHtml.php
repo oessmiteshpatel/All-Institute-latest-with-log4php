@@ -123,7 +123,6 @@ class LoggerLayoutHtml extends LoggerLayout {
 	
 		$sbuf .= "<td>";
 		$sbuf .= round(1000 * $event->getRelativeTime());
-	//	$sbuf .= date('Y-m-d H:i:s', strtotime($event->getRelativeTime()));
 		$sbuf .= "</td>" . PHP_EOL;
 	
 		$sbuf .= "<td title=\"" . $event->getThreadName() . " thread\">";
@@ -131,18 +130,27 @@ class LoggerLayoutHtml extends LoggerLayout {
 		$sbuf .= "</td>" . PHP_EOL;
 	
 		$sbuf .= "<td title=\"Level\">";
-		
+
+		// set custom error
+		$custom_error=Lib_log::getCustomMsg();
+
+		// @@@ replace level with old data
 		$level = $event->getLevel();
+		if(isset($custom_error['errtype']) && !empty($custom_error['errtype'])){
+			$level_text = $custom_error['errtype'];
+		}else{
+			$level_text = $level;
+		}
 		
 		if ($level->equals(LoggerLevel::getLevelDebug())) {
-			$sbuf .= "<font color=\"#339933\">$level</font>";
+			$sbuf .= "<font color=\"#339933\">$level_text</font>";// @@@ chnage $level_text from $level
 		} else if ($level->equals(LoggerLevel::getLevelWarn())) {
-			$sbuf .= "<font color=\"#993300\"><strong>$level</strong></font>";
+			$sbuf .= "<font color=\"#993300\"><strong>$level_text</strong></font>";// @@@ chnage $level_text from $level
 		} else {
-			$sbuf .= $level;
+			$sbuf .= $level_text;// @@@ chnage $level_text from $level
 		}
 		$sbuf .= "</td>" . PHP_EOL;
-
+	
 		$sbuf .= "<td title=\"" . htmlentities($event->getLoggerName(), ENT_QUOTES) . " category\">";
 		$sbuf .= htmlentities($event->getLoggerName(), ENT_QUOTES);
 		$sbuf .= "</td>" . PHP_EOL;
@@ -157,27 +165,6 @@ class LoggerLayoutHtml extends LoggerLayout {
 		$sbuf .= "<td title=\"Message\">";
 		$sbuf .= htmlentities($event->getRenderedMessage(), ENT_QUOTES);
 		$sbuf .= "</td>" . PHP_EOL;
-
-
-		// 	$sbuf .= "<td>" . PHP_EOL;
-
-		// $sbuf .= "hiii";
-
-		// $sbuf .= "</td>" . PHP_EOL;
-
-
-
-		// $sbuf .= "<td>" . PHP_EOL;
-
-		// $sbuf .= htmlentities($locInfo->getLineNumber());
-	
-		// $sbuf .= "</td>" . PHP_EOL;
-
-
-
-
-
-
 
 		$sbuf .= "</tr>" . PHP_EOL;
 		
@@ -213,14 +200,11 @@ class LoggerLayoutHtml extends LoggerLayout {
 		$sbuf .= "<th>Time</th>" . PHP_EOL;
 		$sbuf .= "<th>Thread</th>" . PHP_EOL;
 		$sbuf .= "<th>Level</th>" . PHP_EOL;
-		
 		$sbuf .= "<th>Category</th>" . PHP_EOL;
 		if ($this->locationInfo) {
 			$sbuf .= "<th>File:Line</th>" . PHP_EOL;
 		}
 		$sbuf .= "<th>Message</th>" . PHP_EOL;
-		// $sbuf .= "<th>File Name</th>" . PHP_EOL;
-		// $sbuf .= "<th>Line Number</th>" . PHP_EOL;
 		$sbuf .= "</tr>" . PHP_EOL;
 
 		return $sbuf;

@@ -1268,4 +1268,4 @@ required: "The course enrollment end date is mandatory!",
 
 </html>
 
-<?php ob_end_flush(); ?>
+

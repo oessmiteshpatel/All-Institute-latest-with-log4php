@@ -79,6 +79,11 @@ if (!isset($_SESSION['user'])) {
                             <li class="<?php echo ($activePage == "add_Instructor" ? "active" : ""); ?>"><a href="add_Instructor.php"><span class="fa fa-plus" title="Add Instructor"></span> Add Instructor</a></li>
                         </ul>
                     </li>
+                    <li class=" <?php echo ($activePage == "errorlog" ? "active" : ""); ?>">
+                        <a href="errorlog.php"><span class="fa fa-list" title="Error log"></span> <span class="xn-text">Error log</span></a>
+                    </li>
+                    
+                   
               <!--
                     <li>
                         <a href="change_pass.php"><span class="fa fa-files-o"></span> <span class="xn-text"> Change Password </span></a>

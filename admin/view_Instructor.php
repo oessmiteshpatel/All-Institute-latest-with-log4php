@@ -3,6 +3,7 @@
 include 'side_bar.php';
 include 'header.php';
 include 'connect.php';
+include 'functions.php';
 session_start();
 $MODE=MODE;
 

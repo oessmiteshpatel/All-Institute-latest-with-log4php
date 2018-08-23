@@ -3,20 +3,25 @@
 session_start();
 include 'connect.php';
 $MODE=MODE;
-include 'functions.php';
+//include 'functions.php';
 if(isset($_REQUEST['login']))
 {
    $un=$_REQUEST['username'];
    $pass=$_REQUEST['password'];
-   $sql="select * from admin where `username`='$un' and `password`='$pass'";
-   $res=  c_query($sql);
-   $count=  mysql_num_rows($res);
+   $sql=mysql_query("select * from admin where `username`='$un' and `password`='$pass'");
+   //var_dump($sql);
+   //exit;
+   //$res=  c_query($sql);
+   $res=mysql_fetch_array($sql);
+   $count=  mysql_num_rows($sql);
    if($count > 0)
    {
        $_SESSION['user']=$un;
        //header('location:view_Registration.php');
-       header('location:dashboard.php');
-       
+      // header('location:dashboard.php');
+       echo "<script> 
+				window.location.href='dashboard.php';
+			</script>";
    }
  else {
     ?>
@@ -40,7 +45,7 @@ if(isset($_REQUEST['login']))
 <html lang="en">
     <head>        
         <!-- META SECTION -->
-        <title>ALL-Institute</title>            
+        <title>ALL-Institute | Login Page</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />

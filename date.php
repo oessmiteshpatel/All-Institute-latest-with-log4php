@@ -62,7 +62,8 @@ while($r1=mysql_fetch_array($res1))
 				$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 				$mail->SMTPAuth = true; // authentication enabled
 				$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-				$mail->Host = "smtp.gmail.com";
+			//	$mail->Host = "smtp.gmail.com";
+			    $mail->Host = "mail.uatbyopeneyes.com";
 				$mail->Port = 465; // or 587
 				$mail->IsHTML(true);
 			//	$mail->FromName="AERE"; 

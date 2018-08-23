@@ -1666,7 +1666,7 @@ SECTIONS STYLES
 	padding: 0 0 1em 0;
 	background-color: transparent;
 	position: relative;
-	opacity: 1;
+	opacity: 0;
 	transition: opacity 0.2s ease-out 0.2s;
 }
 .page-slider blockquote {

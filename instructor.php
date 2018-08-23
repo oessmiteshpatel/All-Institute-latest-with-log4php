@@ -4,10 +4,25 @@ include("admin/connect.php");
 session_start();
 $MODE=MODE;
 
+include("log4php/Logger.php");
+include("Lib_log.php");
+
+ 
+Logger::configure('multiple.xml');
+ $log;
+ $log=Logger::getLogger('dberror');
+
+ $vars = new Lib_log(); 
+
+
+
 $InsId=$_REQUEST['InsId']; 
 $res=mysql_query("SELECT * FROM tblmstinstructor Where InsId = '".$_REQUEST['InsId']."'");
 $data=mysql_fetch_array($res);
-
+if($data['InsId']=='')
+{
+	echo "<script>window.location='404.php';</script>";
+}
 
 
 
@@ -54,12 +69,34 @@ $data=mysql_fetch_array($res);
 <link rel="stylesheet" href="css_new/hover-min.css">
 <!-- Custom CSS -->
 <link rel="stylesheet" href="css_new/style.css">
+
 <!-- Modernizr Js -->
 <!-- <script src="js_new/modernizr-2.8.3.min.js"></script>
 <script src="js/jquery-2.1.1.min.js"></script> -->
 <!-- <script src="js/bootstrap.min.js"></script> -->
 
 <style>
+
+#scrollUp {
+  background-color: #C4161C;
+  bottom: 5px;
+  color: #ffffff;
+  display: block;
+  font-size: 18px;
+  height: 45px;
+  line-height: 45px;
+  position: fixed;
+  right: 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 0.5s cubic-bezier(0, 0, 0, 1) 0s;
+  width: 45px;
+  z-index: 99999;
+  border-radius: 50%;
+  padding: 13px 0 0 0;
+}
+
+
 [data-tip] {
 	position:relative;
 	
@@ -406,18 +443,8 @@ input.address
 <!-- <script type='text/javascript'  src="js/jquery-2.1.1.min.js"></script>  -->
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/jquery.validate.min.js"></script> 
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.15.0/additional-methods.min.js"></script> 
-<script type="text/javascript">
 
-
-
-
-
-
-	
-
-
-</script> 
-<<!-- <script type='text/javascript' src='js/magnific-popup.js'></script>  -->
+<!-- <script type='text/javascript' src='js/magnific-popup.js'></script>  -->
 <!-- <script type='text/javascript' src='js/wow.min.js'></script>  -->
 <!-- <script type='text/javascript' src='js/scripts.min.js'></script> 
 <script type='text/javascript' src='js/jquery.sticky-kit.js'></script>  -->

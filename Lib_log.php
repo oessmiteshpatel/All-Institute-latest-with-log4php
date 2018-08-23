@@ -100,14 +100,17 @@ class Lib_log
 									$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 									$mail->SMTPAuth = true; // authentication enabled
 									$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-									$mail->Host = "smtp.gmail.com";
+								//	$mail->Host = "smtp.gmail.com";
+								    $mail->Host = "mail.uatbyopeneyes.com";
 									$mail->Port = 465; // or 587
 									$mail->IsHTML(true);
 									$mail->FromName="AERE - All Institute Learning Institute"; 
-									$mail->Username="noreply.allinstitute@gmail.com";
+								// 	$mail->Username="noreply.allinstitute@gmail.com";
+								// 	$mail->Password="@ere1234";
+								// 	$mail->SetFrom="noreply.allinstitute@gmail.com";
+									$mail->Username="noreply.allinstitute@uatbyopeneyes.com";
 									$mail->Password="@ere1234";
-									$mail->SetFrom="noreply.allinstitute@gmail.com";
-									
+									$mail->SetFrom="noreply.allinstitute@uatbyopeneyes.com";
 
 									$mail->Subject = "All-Institute errors detail";
 									$mail->Body = "<img src='http://allinstitute-dev.demobyopeneyes.com/email/emailimage/emaillogo.jpg' style='height:80px; width:180px;' > <br><br><br>

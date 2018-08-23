@@ -100,11 +100,6 @@ $cid=$_REQUEST['cid'];
 ?>
 
 
-
-
-
-
-
 <!doctype html>
 
 <head>
@@ -512,8 +507,7 @@ input.address
 
 			<div class="alert alert-danger" id="mail_wrong" style="width:100%; margin:0px 0px 10px 0px;display:none"><strong>Your Email ID is not existing.</strong></div>	 
 
-			<div class="alert alert-success" id="register_success2" style="display:none; margin:0px 0px 10px 0px"> <strong>You are register successfully.</strong> <br>
-            Please make sure to login...! </div>
+			<div class="alert alert-success" id="register_success2" style="width:100%;margin:15px 0px 10px 0px;display:none"><b>You are registered successfully.</b></div>
 			<div class="alert alert-success" id="check_mail" style="width:100%; margin:0px 0px 10px 0px;display:none;">
 												<b>Your Password is sent to your Email ID. Please check your Email.</b>
 											</div>
@@ -813,7 +807,8 @@ input.address
         </div>
 		
 		
-        <?php 
+		<?php 
+		//include("admin/connect.php"); 
 $res=mysql_query("SELECT * FROM tblcourse Where CourseID = '".$_REQUEST['cid']."'");
 $data=mysql_fetch_array($res);
 //print_r($data);
@@ -872,7 +867,8 @@ setTimeout(function() {
 		$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
 		$mail->SMTPAuth = true; // authentication enabled
 		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-		$mail->Host = "smtp.gmail.com";
+	//	$mail->Host = "smtp.gmail.com";
+	    $mail->Host = "mail.uatbyopeneyes.com";
 		$mail->Port = 465; // or 587
 		$mail->IsHTML(true);
 		$mail->FromName=FROMNAME;
@@ -913,12 +909,12 @@ setTimeout(function() {
 											{	?>
           <div class="alert alert-success" id="register_success" style="display:none; margin:0px 0px 10px 0px"> <strong>You are register successfully.</strong> <br>
             Please make sure to login...! </div>
-
-
-
-
-
-
+<script>
+setTimeout(function() {
+  $('#register_success').fadeOut('hide');
+}, 10000);
+					
+				</script>
        
           <?php
 											}
@@ -929,7 +925,7 @@ setTimeout(function() {
           <?php
 								
 								$cid=$data['CourseID'];
-								
+							//	include("admin/connect.php"); 
 								if(isset($_POST['signinbtn']))
 								{
 															
@@ -946,7 +942,7 @@ setTimeout(function() {
 							
 							if($isactive=='1')
 							{
-								//session_start();
+							//	session_start();
 								$_SESSION['Email']=$emailpass;
 								$_SESSION['RegisterId']=$regid;
 								$_SESSION['check']=1;
@@ -957,120 +953,139 @@ setTimeout(function() {
 							}
 							else if($isactive=='0')
 							{
-							?>
-								<script>
-										$( document ).ready(function() {
-											$('#user_not_active').attr('style','display:block;');  
+								?>
+
+<script>
+										$("#user_not_active").css({ display: "block" })
 											setTimeout(function() {
-										
-											$('#user_not_active').fadeOut('hide');
-											}, 10000);
-										});
-								</script>
-          					<?php	
+  											$('#user_not_active').fadeOut('hide');
+										}, 10000);
+
+										</script>
+
+         
+		
+          <?php	
 							}	
 							else							
 							{
-								
-								
-								//trigger_error(E_USER_ERROR);
-							?>
-								<script>
-									$("#answer_sign").css({ display: "block" });
-									</script>
-									<script>
-									setTimeout(function() {
-									$('#answer_sign').fadeOut('hide');
-									}, 10000);
 
-																					
-								</script>
-								
-							<?php	
-							// $log->info("Email Id or Password is wrong");															
+							
+							?>
+          <!--<div class="alert alert-danger" style="width:262px; margin:0px 0px 10px 0px"> <strong>Your Email-Id or Password is wrong.</strong> <br>
+            Please try again to login...! </div>
+          <br>-->
+				
+										
+										
+									
+<script>
+$("#answer_sign").css({ display: "block" })
+setTimeout(function() {
+  $('#answer_sign').fadeOut('hide');
+}, 10000);
+
+													
+				</script>
+          <?php								
+															
 							}
 					}
-					if(isset($_POST['remail']))
-	       			{
-						$email=$_REQUEST['email1'];
-						$sql=mysql_query("SELECT * FROM tblregister WHERE Email='$email'");
-						//var_dump($sql);
-						//exit;
-						
-						$row = mysql_fetch_array($sql);
-						$pass=$row['Password'];
-						$email=$row['Email'];
-						$fnam=$row['FirstName'];
-						//session_start();
-						//$_SESSION['ema']=$emm;
+					
+					
+					
+		   if(isset($_POST['remail']))
+	       {
+			$email=$_REQUEST['email1'];
+			$sql=mysql_query("SELECT * FROM tblregister WHERE Email='$email'");
+			//var_dump($sql);
+			//exit;
 			
-						$emai=trim($email);
+			$row = mysql_fetch_array($sql);
+			$pass=$row['Password'];
+			$email=$row['Email'];
+		  	$fnam=$row['FirstName'];
+			//session_start();
+			//$_SESSION['ema']=$emm;
+			
+		$emai=trim($email);
 		
-						require_once('email/class.phpmailer.php');
-						$mail = new PHPMailer(); // create a new object
-						$mail->IsSMTP(); // enable SMTP
-						$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
-						$mail->SMTPAuth = true; // authentication enabled
-						$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
-						$mail->Host = "smtp.gmail.com";
-						$mail->Port = 465; // or 587
-						$mail->IsHTML(true);
-						$mail->FromName=FROMNAME; 
-						$mail->Username=USERNAME;
-						$mail->Password=USERPASSWORD;
-						$mail->SetFrom=SETFROM;
-						$mail->Subject = "AERE Password for Email ID";
-						$mail->Body = "<img src='http://allinstitute-dev.demobyopeneyes.com/email/emailimage/emaillogo.jpg' style='height:80px; width:180px;' > <br><br><br>
-							Hello $fnam, <br/><br/>
-							
+		require_once('email/class.phpmailer.php');
+		$mail = new PHPMailer(); // create a new object
+		$mail->IsSMTP(); // enable SMTP
+		$mail->SMTPDebug = 1; // debugging: 1 = errors and messages, 2 = messages only
+		$mail->SMTPAuth = true; // authentication enabled
+		$mail->SMTPSecure = 'ssl'; // secure transfer enabled REQUIRED for GMail
+	//	$mail->Host = "smtp.gmail.com";
+	    $mail->Host = "mail.uatbyopeneyes.com";
+		$mail->Port = 465; // or 587
+		$mail->IsHTML(true);
+		$mail->FromName=FROMNAME; 
+		$mail->Username=USERNAME;
+		$mail->Password=USERPASSWORD;
+		$mail->SetFrom=SETFROM;
+		$mail->Subject = "AERE Password for Email ID";
+		$mail->Body = "<img src='http://allinstitute-dev.demobyopeneyes.com/email/emailimage/emaillogo.jpg' style='height:80px; width:180px;' > <br><br><br>
+		    Hello $fnam, <br/><br/>
+			
+		
+			Your Password for Email ID $emai of AERE account is $pass<br/><br/>
+			
+			Thank You,<br/>
+			<b>AERE Team </b><br/>";
+		$mail->AddAddress($emai);
+		//$msg="";
+		if(!$mail->Send())
+		{
+			//echo "Mailer Error: " . $mail->ErrorInfo;
+			//echo"<script>alert('Your email-id is wrong');window.location='registration.php';</script>"; 
+			?>
+		
+      
 						
-							Your Password for Email ID $emai of AERE account is $pass<br/><br/>
-							
-							Thank You,<br/>
-							<b>AERE Team </b><br/>";
-						$mail->AddAddress($emai);
-						//$msg="";
-						if(!$mail->Send())
-						{
-							//echo "Mailer Error: " . $mail->ErrorInfo;
-							$log->info("Your Emailid is wrong");
-						?>
-							<script>
+            
+ <script>
 
-								$( document ).ready(function() {
-									$('#mail_wrong').attr('style','display:block;');  
-									setTimeout(function() {
-								
-									$('#mail_wrong').fadeOut('hide');
-									}, 10000);
-								});
-							</script>
-						<?php
-
-						}
-						else
-						{
-		
-							// echo "<script>window.location='forgotpass.php?check=0';</script>";
-							// echo "<script>window.location='registration.php?check=0';</script>";
-							?>
-								<script>
-									$( document ).ready(function() {
-										$('#check_mail').attr('style','display:block;');  
-										setTimeout(function() {
-								//		window.location.href="allcourses.php";
-										$('#check_mail').fadeOut('hide');
+										$("#mail_wrong").css({ display: "block" })
+											setTimeout(function() {
+  											$('#mail_wrong').fadeOut('hide');
 										}, 10000);
-									});				
-								</script>
-							<?php
-						}
+	</script>
+<?php
+
+		}
+		
+		else
+		{
+		
+			// echo "<script>window.location='forgotpass.php?check=0';</script>";
+			// echo "<script>window.location='registration.php?check=0';</script>";
+			?>
+					
+
+										<script>
+						
+
+
+										$("#check_mail").css({ display: "block" })
+											setTimeout(function() {
+  											$('#check_mail').fadeOut('hide');
+										}, 10000);
+
+										</script>
+
+											
+									
+			<?php
+		}
 		
 		
-					}
-				?>
+	}
+?>
 														  
-		 
+		  <!-- <div class="alert alert-success" style="width:262px; margin:0px 0px 10px 0px">
+				                	    <strong> Thank you for registering in Aere.</strong>
+			   </div>  -->
 								   
 
           <div class="sidebar">
@@ -1091,9 +1106,37 @@ setTimeout(function() {
               </div>
             </div>
             
-          
+            <!--   <div class="sidebar-box">
+                                <div class="sidebar-box-inner">
+                                    <h3 class="sidebar-title">Asked Any Question?</h3>
+                                    <div class="sidebar-question-form">
+                                        <form id="question-form">
+                                            <fieldset>
+                                                <div class="form-group">
+                                                    <input type="text" placeholder="Name*" class="form-control" name="name" id="form-name" data-error="Name field is required" required>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <input type="email" placeholder="Email*" class="form-control" name="email" id="form-email" data-error="Email field is required" required>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <textarea placeholder="Message*" class="textarea form-control" name="message" id="sidebar-form-message" rows="3" cols="20" data-error="Message field is required" required></textarea>
+                                                    <div class="help-block with-errors"></div>
+                                                </div>
+                                                <div class="form-group">
+                                                    <button type="submit" class="default-full-width-btn">Send</button>
+                                                </div>
+                                                <div class='form-response'></div>
+                                            </fieldset>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+							-->
             
-            <?php 
+			<?php 
+			//include("admin/connect.php"); 
 $res=mysql_query("SELECT * FROM tblcourse Where CourseID = '".$_REQUEST['cid']."'");
 
 $data=mysql_fetch_array($res);

@@ -1,41 +1,33 @@
-<title>ALL-Institute | Register Course</title>
+<title>ALL-Institute | Errorlogs</title>
 <?php
 include 'side_bar.php';
 include 'header.php';
 include 'connect.php';
-include 'functions.php';
 session_start();
 $MODE=MODE;
-
-
-include("../log4php/Logger.php");
-include("../Lib_log.php");
-
-
-Logger::configure('../multiple.xml');
-//$log;
-//$log=Logger::getLogger('dberror');
-
-$vars = new Lib_log();
 //include 'functions.php';
-//$q = "SELECT * FROM `tbl_1year` ";
 
-$query = "select b.*,c.Title from tblcourseregistered as a left join tblregister as b on a.RegisterId=b.RegisterId left join tblcourse as c on a.CourseID=c.CourseID";
+        
+$query = "SELECT * FROM `tbllog` ";
 
 $result = mysql_query($query)or die(mysql_error());
 ?>
 
-
+<center><div class="alert alert-success" id="update_rec" style="width:100%; margin:0px 0px 10px 0px; display:none;">
+									<strong>Your record was updated successfully!</strong>
+								</div>	  
+						</center>  
 <div class="panel panel-default">
 <div class="<?php echo $MODE; ?>"></div>
-    <div class="panel-heading">                                
+    <div class="panel-heading">         
+                       
         <h3 class="panel-title"> <b>List of registration for all courses</b> </h3>   
 
         <div class="btn-group pull-right">
-            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export All User Courses</button>
+            <button class="btn btn-danger dropdown-toggle" data-toggle="dropdown"><i class="fa fa-bars"></i> Export All Users</button>
             <ul class="dropdown-menu">
                 
-                <li><a href="#" onClick ="$('#customers2').tableExport({type: 'excel', escape: 'false'});"><img src='img/icons/xls.png' width="24"/> XLS</a></li>
+                <li><a href="#" onClick ="$('#customers2').tableExport({tableName:'registration',type: 'excel', escape: 'false'});"><img src='img/icons/xls.png' width="24"/> XLS</a></li>
                 
             </ul>
         </div> 
@@ -49,13 +41,14 @@ $result = mysql_query($query)or die(mysql_error());
                     <th>Sr#</th>
                     
                    
-                    <th width="140"> First Name </th>
-                    <th width="140">Last Name</th>
-                    <th width="170">Email</th>
-                    <th width="140">Phone</th>
-                    <th>Course</th>
-                    <th>Is Active?</th>
                    
+                    <th width="145">timestamp</th>
+                    <th>logger</th>
+                    <th>level</th>
+                    <th width="145">message</th>
+                    <th width="100">thread</th>
+                    <th> file </th>
+                    <th> line</th>
                     
 
 
@@ -66,32 +59,24 @@ $result = mysql_query($query)or die(mysql_error());
                 $i = 1;
 
                 while ($row = mysql_fetch_array($result)) {
-                     $IsActive = $row['IsActive'];
+                  
                     ?>
                     <tr>
                         <td><?php echo $i; ?></td>
                         
                         
-                        <td><?php echo $row['FirstName']; ?></td>
-                        <td><?php echo $row['LastName']; ?></td> 
-						 <td><?php echo $row['Email']; ?></td>
-                        <td><?php echo $row['Phone']; ?></td>
-						<td width="400px;"><?php echo $row['Title']; ?></td>
+                        <td><?php echo $row['timestamp']; ?></td>
+                        <td><?php echo $row['logger']; ?></td> 
+                        <td><?php echo $row['level']; ?></td>
+                        <td><?php echo $row['message']; ?></td>
+                        <td><?php echo $row['thread']; ?></td>
+                        <td><?php echo $row['file']; ?></td>
+                        <td><?php echo $row['line']; ?></td>
+                       
                         
                         
+                       
                         
-                        <td>  
-                           <?php
-                        if($row['IsActive']==1)
-                    {
-                        echo "Yes";
-                    }
-                    if($row['IsActive']==0)
-                    {
-                        echo "No";
-                    }
-?>
-                        </td>
                        
 
                     </tr>
@@ -150,7 +135,37 @@ include 'footer.php';
 <script src="js/jquery.bvalidator-yc.js"></script>
 
 
+<script>
+									<?php
+					if(isset($_SESSION['check']))
+					{
 
+						?>
+					var check = <?php echo $_SESSION['check'];?> 
+						
+						<?php
+						unset($_SESSION['check']);
+					}
+					?>
+					$(document).ready(function () {
+						if(check==1) {
+							//if(cid){
+							$('#update_rec').css('display','block');
+					
+						setTimeout(function() {
+							$('#update_rec').css('display','none');
+
+									var my_variable_name = window.location.href;
+							
+							var success = my_variable_name.replace("?check=0", '');
+							
+							//window.location.replace(success);
+
+						}, 10000);
+					}
+					});
+					
+</script>
 
 
 

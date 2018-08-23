@@ -31,20 +31,20 @@
          <appender_ref ref="emailNotice" />
     </logger> -->
 
-    <appender name="secundus" class="LoggerAppenderPDO">
+    <!-- <appender name="secundus" class="LoggerAppenderPDO">
         <param name="dsn" value="mysql:host=localhost;dbname=aere" />
         <param name="user" value="root" />
         <param name="password" value="" />
-        <param name="table" value="log" />
-    </appender>
+        <param name="table" value="tbllog" />
+    </appender> -->
 
 
-    <!-- <appender name="secundus" class="LoggerAppenderPDO">
+    <appender name="secundus" class="LoggerAppenderPDO">
         <param name="dsn" value="mysql:host=DevAERECourses.db.11797364.2d8.hostedresource.net;dbname=DevAERECourses" />
         <param name="user" value="DevAERECourses" />
         <param name="password" value="W3lc0m3@2018" />
-        <param name="table" value="log" />
-    </appender> -->
+        <param name="table" value="tbllog" />
+    </appender>
  
 
     
@@ -52,7 +52,7 @@
         <param name="dsn" value="DevAERECourses.db.11797364.2d8.hostedresource.net" />
         <param name="user" value="DevAERECourses" />
         <param name="password" value="W3lc0m3@2018" />
-        <param name="table" value="log" />
+        <param name="table" value="tbllog" />
     </appender> -->
 
 
